@@ -14,7 +14,6 @@ import os
 
 from dotenv import load_dotenv
 
-
 dotenv_path = os.path.realpath('./.env')
 load_dotenv(dotenv_path)
 
@@ -26,10 +25,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'rr4krk-!s_r*ghj-zs2*kiio60i3xc^&c_@9pl)_shisyim190'
+SECRET_KEY = bool(os.getenv("SECRET_KEY", "secret_key123"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.getenv("DEBUG", 0))
 
 ALLOWED_HOSTS = []
 
