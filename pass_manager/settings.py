@@ -138,11 +138,15 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = "core.User"
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-}
+# Use the browsable API with JWT auth turned off.
+JWT_AUTH = bool(int(os.getenv("JWT_AUTH", "1")))
+
+if JWT_AUTH:
+    REST_FRAMEWORK = {
+        'DEFAULT_AUTHENTICATION_CLASSES': [
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
+        ],
+    }
 
 ACCESS_TOKEN_LIFETIME = int(os.getenv("ACCESS_TOKEN_LIFETIME", "300"))
 REFRESH_TOKEN_LIFETIME = int(os.getenv("REFRESH_TOKEN_LIFETIME", "3600"))
