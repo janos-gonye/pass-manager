@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'simple_history',
 
     'core',
+    'profiles',
 ]
 
 MIDDLEWARE = [
