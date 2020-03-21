@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:12-alpine
+    container_name: pass-manager-db
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    hostname: db
+  web:
+    build: .
+    container_name: pass-manager-web
+    command: python /www/pass_manager/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/www/pass_manager
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    restart: on-failure
+    links:
+      - db:db
+    env_file:
+      - ./.env
+
+volumes:
+  postgres_data:

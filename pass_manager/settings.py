@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+from dotenv import load_dotenv
+
+
+dotenv_path = os.path.realpath('./.env')
+load_dotenv(dotenv_path)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -75,8 +81,12 @@ WSGI_APPLICATION = 'pass_manager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': os.getenv('POSTGRES_HOST', "db"),
+        'PORT': os.getenv('POSTGRES_PORT', "5432"),
+        'USER': os.getenv('POSTGRES_USER', ""),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', ""),
+        'NAME': os.getenv('POSTGRES_DB', ""),
     }
 }
 
