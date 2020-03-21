@@ -11,3 +11,6 @@ class EncryptedProfileViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return EncryptedProfile.objects.filter(user_id=self.request.user.id)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
