@@ -5,6 +5,6 @@ from simple_history.models import HistoricalRecords
 
 class EncryptedProfile(models.Model):
     user = models.ForeignKey(
-        get_user_model(), on_delete=models.CASCADE, null=True)
+        get_user_model(), on_delete=models.CASCADE)
     data = models.TextField()
     history = HistoricalRecords()
