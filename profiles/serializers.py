@@ -7,5 +7,4 @@ class EncryptedProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = EncryptedProfile
-        fields = ('id', 'data')
-        read_only_fields = ('id', )
+        fields = ('data', )
