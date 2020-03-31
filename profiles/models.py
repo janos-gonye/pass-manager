@@ -4,7 +4,7 @@ from simple_history.models import HistoricalRecords
 
 
 class EncryptedProfile(models.Model):
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         get_user_model(), on_delete=models.CASCADE)
     data = models.TextField()
     history = HistoricalRecords()
