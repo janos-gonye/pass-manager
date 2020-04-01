@@ -1,11 +1,10 @@
-from rest_framework import views
+from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from profiles.models import EncryptedProfile
 from profiles.serializers import EncryptedProfileSerializer
 
-from rest_framework import generics
 
 class EncryptedProfileView(generics.RetrieveUpdateAPIView):
     permission_classes = (IsAuthenticated, )
