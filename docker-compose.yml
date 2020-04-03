@@ -3,7 +3,7 @@ version: '3'
 services:
   db:
     image: postgres:12.0-alpine
-    container_name: pass-manager-db
+    container_name: pass-manager_db
     restart: always
     env_file:
       - ./.env
@@ -12,7 +12,7 @@ services:
     hostname: db
   web:
     build: .
-    container_name: pass-manager-web
+    container_name: pass-manager_web
     command: python /www/pass_manager/manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/www/pass_manager

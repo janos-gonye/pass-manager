@@ -3,7 +3,7 @@ version: '3'
 services:
   db:
     image: postgres:12.0-alpine
-    container_name: prod-pass-manager-db
+    container_name: prod-pass-manager_db
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
@@ -12,6 +12,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
+    container_name: prod-pass-manager_web
     command: gunicorn pass_manager.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:/www/pass_manager/staticfiles
@@ -24,6 +25,7 @@ services:
       - db
   nginx:
     build: ./nginx
+    container_name: prod-pass-manager_nginx
     volumes:
       - static_volume:/www/pass_manager/staticfiles
       - media_volume:/www/pass_manager/mediafiles

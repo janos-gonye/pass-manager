@@ -14,8 +14,8 @@ RUN apk update \
     && apk add postgresql-dev gcc python3-dev musl-dev
 
 RUN pip install --upgrade pip
-ADD . .
-ADD ./requirements.txt .
+COPY . .
+COPY ./requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /www/pass_manager/wheels -r requirements.txt
 
 #########
@@ -24,9 +24,17 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir /www/pass_manager/wheels -r r
 
 FROM python:3.8.0-alpine
 
-WORKDIR /www/pass_manager
-RUN mkdir -p ./staticfiles
-RUN mkdir -p ./mediafiles
+
+ENV APP_HOME=/www/pass_manager
+RUN mkdir -p $APP_HOME
+RUN mkdir -p $APP_HOME/staticfiles
+RUN mkdir -p $APP_HOME/mediafiles
+WORKDIR $APP_HOME
+
+
+# WORKDIR /www/pass_manager
+# RUN mkdir -p ./staticfiles
+# RUN mkdir -p ./mediafiles
 
 RUN addgroup -S app && adduser -S app -G app
 
@@ -37,10 +45,11 @@ COPY --from=builder /www/pass_manager/requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install --no-cache /wheels/*
 
-COPY ./entrypoint.prod.sh .
-COPY . .
+COPY ./entrypoint.prod.sh $APP_HOME
+COPY . $APP_HOME
 
-RUN chown app:app .
+RUN chown -R app:app $APP_HOME
+
 USER app
 
 ENTRYPOINT ["./entrypoint.prod.sh"]
