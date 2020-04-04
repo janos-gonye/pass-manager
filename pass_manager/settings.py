@@ -143,16 +143,30 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
 
 AUTH_USER_MODEL = "core.User"
 
-# Use the browsable API with JWT auth turned off.
-JWT_AUTH = bool(int(os.getenv("JWT_AUTH", "1")))
+# REST FRAMEWORK SETTINGS
+if DEBUG:
+    DEFAULT_AUTHENTICATION_CLASSES = [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+    DEFAULT_RENDERER_CLASSES = [
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework.renderers.JSONRenderer',
+    ]
+else:
+    DEFAULT_AUTHENTICATION_CLASSES = [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ]
+    DEFAULT_RENDERER_CLASSES = [
+        'rest_framework.renderers.JSONRenderer',
+    ]
 
-if JWT_AUTH:
-    REST_FRAMEWORK = {
-        'DEFAULT_AUTHENTICATION_CLASSES': [
-            'rest_framework_simplejwt.authentication.JWTAuthentication',
-        ],
-    }
+REST_FRAMEWORK = {  
+    'DEFAULT_AUTHENTICATION_CLASSES': DEFAULT_AUTHENTICATION_CLASSES,
+    'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES,
+}
 
+# REST FRAMEWORK SIMPLE JWT SETTINGS
 ACCESS_TOKEN_LIFETIME = int(os.getenv("ACCESS_TOKEN_LIFETIME", "300"))
 REFRESH_TOKEN_LIFETIME = int(os.getenv("REFRESH_TOKEN_LIFETIME", "3600"))
 
