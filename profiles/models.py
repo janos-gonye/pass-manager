@@ -8,3 +8,6 @@ class EncryptedProfile(models.Model):
         get_user_model(), on_delete=models.CASCADE)
     data = models.TextField(blank=True)
     history = HistoricalRecords()
+
+    def __str__(self):
+        return f"{self.user.username}-profiles"
