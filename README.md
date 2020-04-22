@@ -15,12 +15,14 @@ cd ./pass-manager
 cp ./.env.template ./.env
 ```
 2. Set your environment variables.
+> You do not need 'ALLOWED_HOSTS' in development. That is
+> why it has been commented out.
 3. Install `docker` and `docker-compose` if they are not installed yet.
 4. Run docker-compose.
 ```sh
 docker-compose up --build
 ```
-5. The app is running on http://localhost:8000.
+5. The app should be running on http://localhost:8000.
 
 ---
 Thanks for reading,  
