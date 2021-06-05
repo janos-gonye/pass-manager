@@ -9,7 +9,6 @@ services:
       - ./.env
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    hostname: db
   web:
     build: .
     container_name: pass-manager_web
@@ -21,8 +20,6 @@ services:
     depends_on:
       - db
     restart: on-failure
-    links:
-      - db:db
     env_file:
       - ./.env
 
