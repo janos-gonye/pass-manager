@@ -4,6 +4,7 @@ services:
   db:
     image: postgres:12.0-alpine
     container_name: prod-pass-manager_db
+    restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
@@ -12,6 +13,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
+    restart: always
     container_name: prod-pass-manager_web
     command: gunicorn pass_manager.wsgi:application --bind 0.0.0.0:8000
     volumes:
@@ -25,6 +27,7 @@ services:
       - db
   nginx:
     build: ./nginx
+    restart: always
     container_name: prod-pass-manager_nginx
     volumes:
       - static_volume:/www/pass_manager/staticfiles
