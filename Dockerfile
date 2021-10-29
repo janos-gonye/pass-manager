@@ -7,7 +7,7 @@ WORKDIR /www/pass_manager
 
 # install psycopg2 dependencies
 RUN apk update \
-    && apk add postgresql-dev gcc python3-dev musl-dev
+    && apk add postgresql-dev gcc python3-dev musl-dev git
 
 RUN pip install --upgrade pip
 COPY requirements.txt .
