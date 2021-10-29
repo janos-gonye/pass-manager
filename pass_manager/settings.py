@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'simple_history',
+    'drjr',
 
     'core',
     'profiles',
@@ -171,3 +172,20 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(seconds=ACCESS_TOKEN_LIFETIME),
     'REFRESH_TOKEN_LIFETIME': timedelta(seconds=REFRESH_TOKEN_LIFETIME),
 }
+
+# Expiration time in seconds
+DJANGO_REST_JWT_REGISTRATION = {
+    'REGISTRATION_TOKEN_LIFETIME': int(os.getenv('REGISTRATION_TOKEN_LIFETIME', '3600')),
+    'REGISTRATION_DELETE_TOKEN_LIFETIME': int(os.getenv('REGISTRATION_DELETE_TOKEN_LIFETIME', '3600')),
+    'PASSWORD_CHANGE_TOKEN_LIFETIME': int(os.getenv('PASSWORD_CHANGE_TOKEN_LIFETIME', '3600')),
+    'EMAIL_CHANGE_TOKEN_LIFETIME': int(os.getenv('EMAIL_CHANGE_TOKEN_LIFETIME', '3600')),
+    'DELETE_EXPIRED_TOKENS_INTERVAL': int(os.getenv('DELETE_EXPIRED_TOKENS_INTERVAL', '60')),
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
+EMAIL_USE_TLS = bool(int(os.getenv('EMAIL_USE_TLS')))
+EMAIL_USE_SSL = bool(int(os.getenv('EMAIL_USE_SSL')))

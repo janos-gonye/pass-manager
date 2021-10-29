@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('token/', include('core.token_urls')),
     path('profiles/', include('profiles.urls')),
+    path('auth/', include('drjr.urls')),
 ]
