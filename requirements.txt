@@ -3,7 +3,7 @@ Django==3.2.23
 django-simple-history==3.0.0
 djangorestframework==3.12.4
 djangorestframework-simplejwt==4.6.0
-gunicorn==20.1.0
+gunicorn==22.0.0
 psycopg2-binary==2.8.6
 PyJWT==2.4.0
 pytz==2019.3
